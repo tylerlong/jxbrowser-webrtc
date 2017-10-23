@@ -11,13 +11,13 @@ public class RingCentralWebWidget {
         Browser browser = new Browser();
         BrowserView view = new BrowserView(browser);
 
-        JFrame frame = new JFrame("JxBrowser - Hello World");
+        JFrame frame = new JFrame("RingCentral Java desktop demo");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(view, BorderLayout.CENTER);
-        frame.setSize(500, 400);
+        frame.setSize(350, 550);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        browser.loadHTML("<html><body><h1>Hello World!</h1></body></html>");
+        browser.loadURL("https://ringcentral.github.io/ringcentral-web-widget/app.html");
     }
 }

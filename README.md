@@ -1,6 +1,8 @@
 # JxBrowser WebRTC
 
-Try WebRTC in JxBrowser
+Try WebRTC in JxBrowser to demonstrate that it is possible to have full RingCental capability in a Java desktop app.
+
+![calling](screenshots/calling.png)
 
 
 ## Setup
