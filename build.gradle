@@ -1,14 +1,13 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'com.ringcentral'
 version '0.1.0'
 
-repositories {
-    jcenter()
-}
-
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 }
+
+mainClassName = "com.ringcentral.RingCentralWebWidget"
