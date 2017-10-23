@@ -1,6 +1,9 @@
 package com.ringcentral;
 
 import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.JSValue;
+import com.teamdev.jxbrowser.chromium.events.ScriptContextAdapter;
+import com.teamdev.jxbrowser.chromium.events.ScriptContextEvent;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
@@ -20,6 +23,29 @@ class MainApp implements ActionListener {
     MainApp() {
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
+        browser.addScriptContextListener(new ScriptContextAdapter() {
+            @Override
+            public void onScriptContextCreated(ScriptContextEvent event) {
+                Browser browser = event.getBrowser();
+
+                JSValue window = browser.executeJavaScriptAndReturnValue("window");
+                window.asObject().setProperty("java", new JavaObject());
+
+                browser.executeJavaScript("window._postMessage = window.postMessage;"
+                + "window.postMessage = (data, targetOrigin) => {"
+                + "    window._postMessage(data, targetOrigin);"
+                + "    if (data) {"
+                + "        switch (data.type) {"
+                + "        case 'rc-call-ring-notify':"
+                + "            window.java.onCallRing(data.call.from);"
+                + "            break;"
+                + "        default:"
+                + "            break;"
+                + "        }"
+                + "    }"
+                + "}");
+            }
+        });
 
         JPanel panel = new JPanel();
         JButton button = new JButton("Click to Dial");
@@ -39,7 +65,7 @@ class MainApp implements ActionListener {
         browser.loadURL("https://ringcentral.github.io/ringcentral-web-widget/app.html");
     }
 
-    public void actionPerformed(ActionEvent evt) {
+    public void actionPerformed(ActionEvent evt) { // Click to dial button clicked
         String text = textField.getText();
         if (!text.matches("^\\d{4,}$")) {
             JOptionPane.showMessageDialog(null, "Please enter four or more digits");
