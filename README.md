@@ -2,7 +2,7 @@
 
 Try WebRTC in JxBrowser to demonstrate that it is possible to have full RingCental capability in a Java desktop app.
 
-<img width="400" alt="calling" src="screenshots/calling.png"/>
+<img width="370" alt="calling" src="screenshots/calling.png"/>
 
 
 ## Setup
