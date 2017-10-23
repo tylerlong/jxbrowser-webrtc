@@ -10,9 +10,5 @@ repositories {
 }
 
 dependencies {
-    compile files('libs/jxbrowser.jar')
-    compile files('libs/jxbrowser-win32.jar')
-    compile files('libs/jxbrowser-mac.jar')
-    compile files('libs/jxbrowser-linux64.jar')
-    compile files('libs/license.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
 }

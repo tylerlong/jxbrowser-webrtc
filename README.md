@@ -1,6 +1,6 @@
-# JxBrowser webRTC
+# JxBrowser WebRTC
 
-Try webRTC in JxBrowser
+Try WebRTC in JxBrowser
 
 
 ## Setup
