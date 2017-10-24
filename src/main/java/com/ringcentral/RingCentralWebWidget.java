@@ -2,6 +2,8 @@ package com.ringcentral;
 
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.JSValue;
+import com.teamdev.jxbrowser.chromium.events.ConsoleEvent;
+import com.teamdev.jxbrowser.chromium.events.ConsoleListener;
 import com.teamdev.jxbrowser.chromium.events.ScriptContextAdapter;
 import com.teamdev.jxbrowser.chromium.events.ScriptContextEvent;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
@@ -23,10 +25,13 @@ class MainApp implements ActionListener {
     MainApp() {
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
+
         browser.addScriptContextListener(new ScriptContextAdapter() {
             @Override
             public void onScriptContextCreated(ScriptContextEvent event) {
                 Browser browser = event.getBrowser();
+
+                browser.executeJavaScript("console._log = console.log; console.info = console.log = console.error = console.debug = (obj) => { console._log(JSON.stringify(obj)); }");
 
                 JSValue window = browser.executeJavaScriptAndReturnValue("window");
                 window.asObject().setProperty("java", new JavaObject());
@@ -44,6 +49,12 @@ class MainApp implements ActionListener {
                 + "        }"
                 + "    }"
                 + "}");
+            }
+        });
+
+        browser.addConsoleListener(new ConsoleListener() {
+            public void onMessage(ConsoleEvent event) {
+                System.out.println("Browser: " + event.getMessage());
             }
         });
 
