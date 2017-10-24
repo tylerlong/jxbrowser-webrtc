@@ -31,14 +31,11 @@ class MainApp implements ActionListener {
             public void onScriptContextCreated(ScriptContextEvent event) {
                 Browser browser = event.getBrowser();
 
-                browser.executeJavaScript("console._log = console.log; console.info = console.log = console.error = console.debug = (obj) => { console._log(JSON.stringify(obj)); }");
-
                 JSValue window = browser.executeJavaScriptAndReturnValue("window");
                 window.asObject().setProperty("java", new JavaObject());
 
-                browser.executeJavaScript("window._postMessage = window.postMessage;"
-                + "window.postMessage = (data, targetOrigin) => {"
-                + "    window._postMessage(data, targetOrigin);"
+                browser.executeJavaScript("window.addEventListener('message', (e) => {"
+                + "const data = e.data;"
                 + "    if (data) {"
                 + "        switch (data.type) {"
                 + "        case 'rc-call-ring-notify':"
@@ -48,7 +45,7 @@ class MainApp implements ActionListener {
                 + "            break;"
                 + "        }"
                 + "    }"
-                + "}");
+                + "});");
             }
         });
 
