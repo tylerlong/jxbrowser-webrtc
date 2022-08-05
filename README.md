@@ -20,7 +20,7 @@ Video demo: https://www.youtube.com/watch?v=SKpLd20b2OM&feature=youtu.be
 
 ## Setup
 
-Please follow [this guide](https://jxbrowser.support.teamdev.com/support/solutions/articles/9000012864-quick-start-guide-for-swing-developers) to download and save JxBrowser jar files together with the license jar file into the `libs/` directory.
+Please follow [this guide](https://jxbrowser-support.teamdev.com/docs/guides/installation/classpath.html) to download and save JxBrowser jar files file into the `libs/` directory. For more information pleaser refer to the [documentation of JxBrowser](https://jxbrowser-support.teamdev.com/docs/quickstart/#quick-start).
 
 
 ## Build
